@@ -27,4 +27,15 @@ export class TasksService {
     this.tasks.push(task);
     return task;
   }
+
+  deleteTaskBydId(id: string): Task {
+    const deletedData = this.tasks.find((task) => task.id == id);
+    const taskIndex = this.tasks.map((task) => task.id).indexOf(id);
+    this.tasks.splice(taskIndex, 1);
+    return deletedData;
+  }
+
+  deleteTask(id: string): void {
+    this.tasks = this.tasks.filter((task) => task.id != id);
+  }
 }
