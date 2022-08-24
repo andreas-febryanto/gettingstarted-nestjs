@@ -50,11 +50,14 @@ export class TasksService {
 
     return task;
   }
-  // updateTask(id: string, status: TaskStatus): Task {
-  //   const task = this.getTaskBydId(id);
-  //   task.status = status;
-  //   return task;
-  // }
+
+  async updateTask(id: number, status: TaskStatus): Promise<Task> {
+    const task = await this.getTaskBydId(id);
+    task.status = status;
+    await task.save();
+    return task;
+  }
+
   async deleteTask(id: number): Promise<void> {
     const result = await this.taskRepository.delete(id);
     if (result.affected === 0)
@@ -64,24 +67,3 @@ export class TasksService {
     // this.tasks = this.tasks.filter((task) => task.id != found.id);
   }
 }
-// updateTask(id: string, status: TaskStatus): Task {
-//   this.tasks.map((task) => {
-//     if (task.id == id) {
-//       switch (status) {
-//         case TaskStatus.OPEN:
-//           task.status = TaskStatus.OPEN;
-//           break;
-//         case TaskStatus.IN_PROGRESS:
-//           task.status = TaskStatus.IN_PROGRESS;
-//           break;
-//         case TaskStatus.DONE:
-//           task.status = TaskStatus.DONE;
-//           break;
-//         default:
-//           break;
-//       }
-//     }
-//     return task;
-//   });
-//   return this.tasks.find((task) => task.id == id);
-// }
