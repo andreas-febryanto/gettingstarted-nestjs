@@ -55,10 +55,14 @@ export class TasksService {
   //   task.status = status;
   //   return task;
   // }
-  // deleteTask(id: string): void {
-  //   const found = this.getTaskBydId(id);
-  //   this.tasks = this.tasks.filter((task) => task.id != found.id);
-  // }
+  async deleteTask(id: number): Promise<void> {
+    const result = await this.taskRepository.delete(id);
+    if (result.affected === 0)
+      throw new NotFoundException(`Task with ID "${id}" not found`);
+
+    // const found = this.getTaskBydId(id);
+    // this.tasks = this.tasks.filter((task) => task.id != found.id);
+  }
 }
 // updateTask(id: string, status: TaskStatus): Task {
 //   this.tasks.map((task) => {
@@ -80,10 +84,4 @@ export class TasksService {
 //     return task;
 //   });
 //   return this.tasks.find((task) => task.id == id);
-// }
-// deleteTask(id: string): Task {
-//   const deletedData = this.tasks.find((task) => task.id == id);
-//   const taskIndex = this.tasks.map((task) => task.id).indexOf(id);
-//   this.tasks.splice(taskIndex, 1);
-//   return deletedData;
 // }
