@@ -25,7 +25,7 @@ export class TasksService {
 
     if (search) {
       query.andWhere(
-        'task.title LIKE :search OR task.description LIKE :search',
+        '(task.title LIKE :search OR task.description LIKE :search)',
         { search: `%${search}%` },
       );
     }
