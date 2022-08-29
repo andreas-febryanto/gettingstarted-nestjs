@@ -52,13 +52,14 @@ export class TasksController {
     return this.taskService.createTask(createTaskDto, user);
   }
 
-  // @Patch('/:id')
-  // updateTask(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body('status', TaskStatusValidationPipe) status: TaskStatus,
-  // ): Promise<Task> {
-  //   return this.taskService.updateTask(id, status);
-  // }
+  @Patch('/:id')
+  updateTask(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.taskService.updateTask(id, status, user);
+  }
 
   @Delete('/:id')
   deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
