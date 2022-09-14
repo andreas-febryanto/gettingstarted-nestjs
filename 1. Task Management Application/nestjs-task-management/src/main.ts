@@ -14,6 +14,8 @@ async function bootstrap() {
   //   readFileSync(join(__dirname, `../config/${YAML_CONFIG_FILENAME}`), 'utf-8'),
   // ) as Record<string, any>;
   const app = await NestFactory.create(AppModule);
+  if (process.env.NODE_ENV === 'development') app.enableCors();
+
   const port = process.env.PORT || serverConfig.port;
   logger.log(`Application listening on port ${port}`);
   await app.listen(port);
